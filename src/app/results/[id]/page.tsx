@@ -738,6 +738,67 @@ export default function ResultsPage() {
           </div>
         </div>
       </div>
+
+      {/* 6. NATURAL PRODUCTS RECOMMENDED FOR YOU */}
+      <div className="p-6 sm:p-8 premium-card space-y-6">
+        <div>
+          <div className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-red-500 font-semibold">
+            <ShoppingBag className="w-3.5 h-3.5" />
+            <span>NATURAL PRODUCTS</span>
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold text-zinc-950 dark:text-white mt-1">
+            {language === "hi" ? "प्राकृतिक उत्पाद जो आपके लिए उपयुक्त हो सकते हैं" : language === "te" ? "మీకు అనుకూలమైన సహజ ఉత్పత్తులు" : "Natural Products Recommended For You"}
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+            {language === "hi" ? "प्राकृतिक सामग्री पर आधारित उत्पाद जो बालों के झड़ने को कम करने में मदद कर सकते हैं" : language === "te" ? "జుట్టు రాలడాన్ని తగ్గించడంలో సహాయపడే సహజ పదార్థాలపై ఆధారపడిన ఉత్పత్తులు" : "Product recommendations based on your hairline analysis - natural & effective options"}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {recommendedProducts.map((product) => (
+            <div key={product.id} className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 hover:border-red-400/50 transition-all space-y-4">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-500/10 text-red-600 dark:text-red-400 font-medium">
+                    {product.brand}
+                  </span>
+                  <h3 className="text-base font-bold text-zinc-900 dark:text-white mt-2">
+                    {product.name}
+                  </h3>
+                  <p className="text-xs text-zinc-500 mt-1">
+                    {product.tagline}
+                  </p>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-sm font-bold text-zinc-900 dark:text-white">₹{product.price}</div>
+                  <div className="flex items-center gap-1 mt-1">
+                    <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                    <span className="text-[11px] text-zinc-500">{product.rating} ({product.reviewsCount})</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                {product.shortDescription}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {product.badges.slice(0, 2).map((badge, idx) => (
+                  <span key={idx} className="px-2 py-0.5 rounded text-[10px] bg-zinc-200/60 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              {product.whyItSuitsYou && (
+                <div className="p-2.5 rounded-lg bg-green-500/10 border border-green-500/20 text-xs text-green-700 dark:text-green-400">
+                  <strong>Why it suits you: </strong>{product.whyItSuitsYou}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <p className="text-[11px] text-zinc-500 text-center">
+          {language === "hi" ? "* ये सुझाव सामान्य जानकारी हैं। गंभीर समस्या होने पर डॉक्टर से सलाह लें।" : "* These are general recommendations. Consult a doctor if you have severe hair loss concerns."}
+        </p>
+      </div>
     </div>
   );
 }
