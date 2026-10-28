@@ -754,44 +754,57 @@ export default function ResultsPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {recommendedProducts.map((product) => (
-            <div key={product.id} className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 hover:border-red-400/50 transition-all space-y-4">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-500/10 text-red-600 dark:text-red-400 font-medium">
+            <div key={product.id} className="rounded-xl bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 hover:border-red-400/50 hover:shadow-lg transition-all overflow-hidden flex flex-col">
+              <div className="relative h-48 w-full bg-zinc-100 dark:bg-zinc-800">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2">
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono bg-white/90 dark:bg-black/80 text-zinc-900 dark:text-white font-medium">
                     {product.brand}
                   </span>
-                  <h3 className="text-base font-bold text-zinc-900 dark:text-white mt-2">
+                </div>
+              </div>
+              <div className="p-4 space-y-3 flex flex-col flex-grow">
+                <div>
+                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white line-clamp-2 leading-tight">
                     {product.name}
                   </h3>
-                  <p className="text-xs text-zinc-500 mt-1">
+                  <p className="text-[11px] text-zinc-500 mt-1 line-clamp-1">
                     {product.tagline}
                   </p>
                 </div>
-                <div className="text-right shrink-0">
-                  <div className="text-sm font-bold text-zinc-900 dark:text-white">₹{product.price}</div>
-                  <div className="flex items-center gap-1 mt-1">
+                <div className="flex items-center justify-between">
+                  <div className="text-base font-bold text-zinc-900 dark:text-white">₹{product.price}</div>
+                  <div className="flex items-center gap-1">
                     <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                    <span className="text-[11px] text-zinc-500">{product.rating} ({product.reviewsCount})</span>
+                    <span className="text-[10px] text-zinc-500">{product.rating}</span>
                   </div>
                 </div>
-              </div>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                {product.shortDescription}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {product.badges.slice(0, 2).map((badge, idx) => (
-                  <span key={idx} className="px-2 py-0.5 rounded text-[10px] bg-zinc-200/60 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                    {badge}
-                  </span>
-                ))}
-              </div>
-              {product.whyItSuitsYou && (
-                <div className="p-2.5 rounded-lg bg-green-500/10 border border-green-500/20 text-xs text-green-700 dark:text-green-400">
-                  <strong>Why it suits you: </strong>{product.whyItSuitsYou}
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
+                  {product.shortDescription}
+                </p>
+                <div className="flex flex-wrap gap-1 mt-auto">
+                  {product.badges.slice(0, 2).map((badge, idx) => (
+                    <span key={idx} className="px-1.5 py-0.5 rounded text-[9px] bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                      {badge}
+                    </span>
+                  ))}
                 </div>
-              )}
+                {product.whyItSuitsYou && (
+                  <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20 text-[10px] text-green-700 dark:text-green-400 line-clamp-2">
+                    <strong>Fit: </strong>{product.whyItSuitsYou}
+                  </div>
+                )}
+                <button className="w-full py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white text-xs font-semibold transition-colors">
+                  {language === "hi" ? "खरीदें" : "View Product"}
+                </button>
+              </div>
             </div>
           ))}
         </div>
