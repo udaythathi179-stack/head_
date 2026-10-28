@@ -92,50 +92,102 @@ export default function ResultsPage() {
   };
 
   const getProblemText = () => {
+    if (!analysis) return { status: "", title: "", explanation: "", meaning: "", fixes: [] };
+    
+    const leftStatus = analysis.leftTemple?.status || "mild-recession";
+    const rightStatus = analysis.rightTemple?.status || "mild-recession";
+    const leftDepth = analysis.leftTemple?.recessionDepthPct || 0;
+    const rightDepth = analysis.rightTemple?.recessionDepthPct || 0;
+    const isModerate = leftStatus.includes("moderate") || rightStatus.includes("moderate") || leftDepth >= 15 || rightDepth >= 15;
+    const isAsymmetric = Math.abs(leftDepth - rightDepth) >= 3;
+    const pattern = analysis.visiblePattern?.category || "";
+    
     if (language === "hi") {
+      if (isModerate) {
+        return {
+          status: "मध्यम चरण • निगरानी आवश्यक",
+          title: isAsymmetric ? "दोनों मंदिरों में मध्यम असमान रिसेशन" : "दोनों मंदिरों में मध्यम रिसेशन",
+          explanation: `आपकी फोटो में दोनों मंदिरों के कोनों पर ${isAsymmetric ? 'असमान रूप से' : ''} पीछे खिसकाव दिख रहा है। ${analysis.leftTemple?.notes || analysis.rightTemple?.notes || 'हेयरलाइन के कोने प्रभावित हैं।'}`,
+          meaning:
+            "यह मध्यम स्तर का अग्र-मंदिर रिसेशन हो सकता है (आनुवंशिक/एंड्रोजेनेटिक पैटर्न)। मध्य भाग अभी संरक्षित हो सकता है, लेकिन मंदिर क्षेत्रों पर ध्यान देना जरूरी है।",
+          fixes: [
+            "वास्तविक प्रभाव के लिए चिकित्सकीय सलाह लें (ट्राइकोलॉजिस्ट/चर्मरोग विशेषज्ञ)।",
+            "रोज़ मंदिर कोनों पर प्रमाणित सीरम/उपचार का उपयोग करें जैसा विशेषज्ञ सुझाएं।",
+            "टाइट हेयरस्टाइल, खिंचाव और अत्यधिक गर्म पानी से बचें।",
+            "हर 4-6 सप्ताह में फोटो लेकर प्रगति ट्रैक करें।",
+          ],
+        };
+      }
       return {
         status: "शुरुआती चरण • नियंत्रण में",
-        title: "दोनों कोनों पर हल्का रिसेशन (शुरुआती चरण)",
-        explanation:
-          "आपकी हेयरलाइन के दोनों कोने थोड़े पीछे खिसक गए हैं, जिससे सामने हल्का M-आकार बनता है। यही मुख्य समस्या आपकी फोटो में दिख रही है। बीच की हेयरलाइन अभी मजबूत है और आसपास की जड़ें स्वस्थ दिखती हैं।",
+        title: isAsymmetric ? "मंदिरों में हल्का असमान रिसेशन" : "मंदिरों के दोनों कोनों पर हल्का रिसेशन (शुरुआती चरण)",
+        explanation: `आपकी हेयरलाइन के मंदिर कोनों में हल्का पीछे खिसकाव दिख रहा है। ${isAsymmetric ? `बायाँ ~${leftDepth}%, दायाँ ~${rightDepth}% गहराई का अंतर दिख रहा है।` : ''} मध्य की हेयरलाइन अभी मजबूत है।`,
         meaning:
-          "यह शुरुआती और सामान्य पैटर्न है, गंभीर गंजापन नहीं। आनुवंशिकता (DHT), कोनों में कम खून का बहाव और कसकर बांधे बाल इन कोनों को धीरे-धीरे पीछे कर सकते हैं। अभी ध्यान देने से हेयरलाइन स्थिर रखने का सबसे अच्छा मौका मिलता है।",
+          "यह शुरुआती और सामान्य पैटर्न हो सकता है। आनुवंशिकता (DHT), कम रक्त प्रवाह और कसकर बांधे बाल धीरे-धीरे प्रभाव डाल सकते हैं। अभी कार्रवाई करने से स्थिर रखने में मदद मिल सकती है।",
         fixes: [
-          "हर रात दोनों कोनों पर Redensyl या पेप्टाइड हेयर सीरम लगाएं।",
-          "रोज 3–4 मिनट हेयरलाइन की हल्की मालिश करें ताकि खून का बहाव बढ़े।",
+          "हर रात दोनों मंदिर कोनों पर Redensyl या पेप्टाइड हेयर सीरम लगाएं।",
+          "रोज 3–4 मिनट हेयरलाइन की हल्की मालिश करें ताकि रक्त प्रवाह बढ़े।",
           "टाइट कैप, बालों को पीछे खींचना और बहुत गर्म पानी से बचें।",
           "हर महीने फोटो लें ताकि बदलाव आसानी से पता चले।",
         ],
       };
     }
     if (language === "te") {
+      if (isModerate) {
+        return {
+          status: "మధ్యస్థ దశ • పర్యవేక్షణ అవసరం",
+          title: isAsymmetric ? "రెండు ఆలకాలలో మధ్యస్థ అసమాన రిసెషన్" : "రెండు ఆలకాలలో మధ్యస్థ రిసెషన్",
+          explanation: `మీ ఫోటోలో రెండు ఆలకాల మూలలలో ${isAsymmetric ? 'అసమానంగా' : ''} వెనుకకు జరడం కనిపిస్తుంది. ${analysis.leftTemple?.notes || analysis.rightTemple?.notes || ''}`,
+          meaning:
+            "ఇది మధ్యస్థ స్థాయి ముందు-ఆలక రిసెషన్ కావచ్చు. మధ్య భాగం ఇప్పటికీ కాపాడబడవచ్చు, కానీ ఆలక ప్రాంతాలపై శ్రద్ధ అవసరం.",
+          fixes: [
+            "నిపుణుడైన ట్రైకోలాజిస్ట్ లేదా చర్మవ్యాధి నిపుణుడిని సంప్రదించండి.",
+            "నిపుణుడు సూచించిన సీరమ్‌లు/చికిత్సలను నిరంతరం ఉపయోగించండి.",
+            "బిగుతైన హేమ్ స్టైల్స్, లాగడం, చాలా వేడి నీరు నివారించండి.",
+            "4-6 వారాలకు ఒకసారి ఫోటోలు తీసి పురోగతిని పర్యవేక్షించండి.",
+          ],
+        };
+      }
       return {
         status: "ప్రారంభ దశ • నియంత్రణలో",
-        title: "రెండు మూలల్లో తేలికపాటి రిసెషన్ (ప్రారంభ దశ)",
-        explanation:
-          "మీ హెయిర్‌లైన్ రెండు మూలలు కొద్దిగా వెనక్కి జరిగి ముందు భాగంలో లేత M-ఆకారం ఏర్పడింది. మీ ఫోటోలో కనిపిస్తున్న ప్రధాన సమస్య ఇదే. మధ్య హెయిర్‌లైన్ ఇంకా బలంగా ఉంది, సమీప మూలాలు ఆరోగ్యంగా కనిపిస్తున్నాయి.",
+        title: isAsymmetric ? "ఆలకాలలో తేలికపాటి అసమాన రిసెషన్" : "రెండు ఆలక మూలల్లో తేలికపాటి రిసెషన్ (ప్రారంభ దశ)",
+        explanation: `మీ హెయిర్‌లైన్ ఆలక మూలలు కొద్దిగా వెనక్కి జరిగాయి. ${isAsymmetric ? `ఎడమ ~${leftDepth}%, కుడి ~${rightDepth}% లోతు వ్యత్యాసం కనిపిస్తోంది.` : ''} మధ్య హెయిర్‌లైన్ ఇంకా బలంగా ఉంది.`,
         meaning:
-          "ఇది ప్రారంభ, సాధారణ ప్యాటర్న్, తీవ్రమైన బట్టతల కాదు. జన్యువులు (DHT), మూలల్లో తక్కువ రక్తప్రసరణ, బిగుతైన జుట్టు కట్టడం వంటివి ఈ మూలలను నెమ్మదిగా వెనక్కి నెట్టవచ్చు. ఇప్పుడే చర్య తీసుకుంటే హెయిర్‌లైన్ స్థిరంగా ఉంచే అవకాశం ఉంటుంది.",
+          "ఇది ప్రారంభ, సాధారణ ప్యాటర్న్ కావచ్చు. జన్యువులు (DHT), తక్కువ రక్తప్రసరణ, బిగుతైన జుట్టు కట్టడం ప్రభావం చూపవచ్చు. ఇప్పుడే చర్య తీసుకుంటే స్థిరంగా ఉంచవచ్చు.",
         fixes: [
-          "ప్రతి రాత్రి రెండు మూలలపై Redensyl లేదా పెప్టైడ్ హెయిర్ సీరమ్ అప్లై చేయండి.",
-          "రోజూ 3–4 నిమిషాలు హెయిర్‌లైన్‌ను సున్నితంగా మర్దన చేయండి, రక్తప్రసరణ పెరుగుతుంది.",
+          "ప్రతి రాత్రి రెండు ఆలక మూలలపై Redensyl లేదా పెప్టైడ్ హెయిర్ సీరమ్ అప్లై చేయండి.",
+          "రోజూ 3–4 నిమిషాలు సున్నితంగా మర్దన చేయండి.",
           "బిగుతైన టోపీలు, జుట్టును వెనక్కి లాగడం, చాలా వేడి నీరు వాడకండి.",
-          "ప్రతి నెలా ఫోటో తీసి మార్పును సులభంగా గమనించండి.",
+          "ప్రతి నెలా ఫోటో తీసి మార్పును గమనించండి.",
+        ],
+      };
+    }
+    if (isModerate) {
+      return {
+        status: "Moderate stage • Needs attention",
+        title: isAsymmetric ? "Moderate asymmetric temple recession" : "Moderate temple recession at both corners",
+        explanation: `Your photo shows ${isAsymmetric ? 'uneven' : ''} recession at the temple corners. ${analysis.leftTemple?.notes || analysis.rightTemple?.notes || ''} ${pattern ? `Pattern noted: ${pattern}.` : ''}`,
+        meaning:
+          "This appears to be a more noticeable fronto-temporal recession. The midline may still be present, but the temples are more affected. Early medical evaluation is recommended to discuss evidence-based options.",
+        fixes: [
+          "Consider a consultation with a dermatologist/trichologist for assessment.",
+          "Follow an evidence-based regimen (as advised) consistently.",
+          "Avoid tight hairstyles, traction, and very hot water.",
+          "Track with photos every 4-6 weeks to monitor progression.",
         ],
       };
     }
     return {
       status: "Early stage • Manageable",
-      title: "Mild temple recession at both corners (early stage)",
-      explanation:
-        "The two corners of your hairline have moved slightly backward, creating a gentle M-shape at the front. This is the main problem visible in your photo. The middle of your hairline is still strong and the nearby hair roots look healthy.",
+      title: isAsymmetric ? "Mild asymmetric temple recession" : "Mild temple recession at both corners (early stage)",
+      explanation: `The temple corners show mild backward movement${isAsymmetric ? ` (left ~${leftDepth}% depth, right ~${rightDepth}% depth)` : ''}. The middle of the hairline remains relatively strong and nearby roots appear healthier.`,
       meaning:
-        "This is an early, common pattern, not severe hair loss. Genetics (DHT), lower blood flow at the temple corners, and tight hairstyles can slowly push these corners back. Acting now gives you the best chance to keep your hairline stable.",
+        "This is an early, common pattern—not necessarily severe hair loss. Genetics (DHT), reduced blood flow at the temple corners, and tight hairstyles can contribute over time. Acting now gives the best chance to keep your hairline stable.",
       fixes: [
         "Apply a Redensyl or peptide hair serum on both temple corners every night.",
         "Massage the hairline gently for 3–4 minutes daily to improve blood flow.",
         "Avoid tight caps, pulling hair back, and very hot water on the scalp.",
-        "Take a front photo every month so you can clearly track any change.",
+        "Take a front photo every month to track any change.",
       ],
     };
   };
@@ -257,7 +309,7 @@ export default function ResultsPage() {
                 {t("overallStatusTitle")}
               </span>
               <span className="text-xs font-mono font-medium text-zinc-400">
-                Norwood Type 2
+                {analysis.visiblePattern?.norwoodEquivalent || analysis.visiblePattern?.category || "Norwood Type 2"}
               </span>
             </div>
 
@@ -345,12 +397,19 @@ export default function ResultsPage() {
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-red-500 font-mono uppercase">{t("leftSide")}</span>
               <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-[11px] font-medium text-zinc-700 dark:text-zinc-300">
-                {t("mildRecessionSimple")}
+                {analysis.leftTemple?.status === "moderate-recession" 
+                  ? (language === "hi" ? "मध्यम रिसेशन" : language === "te" ? "మధ్యస్థ రిసెషన్" : "Moderate recession")
+                  : (language === "hi" ? "हल्का रिसेशन" : language === "te" ? "తేలికపాటి రిసెషన్" : "Mild recession")}
               </span>
             </div>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              {t("leftSideSimpleNotes")}
+              {analysis.leftTemple?.notes || t("leftSideSimpleNotes")}
             </p>
+            {analysis.leftTemple?.recessionDepthPct !== undefined && (
+              <p className="text-[11px] text-zinc-500">
+                {language === "hi" ? "अनुमानित गहराई:" : language === "te" ? "అంచనా లోతు:" : "Estimated depth:"} {analysis.leftTemple.recessionDepthPct}%
+              </p>
+            )}
           </div>
 
           {/* Right Temple */}
@@ -358,12 +417,19 @@ export default function ResultsPage() {
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-red-500 font-mono uppercase">{t("rightSide")}</span>
               <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-[11px] font-medium text-zinc-700 dark:text-zinc-300">
-                {t("mildRecessionSimple")}
+                {analysis.rightTemple?.status === "moderate-recession" 
+                  ? (language === "hi" ? "मध्यम रिसेशन" : language === "te" ? "మధ్యస్థ రిసెషన్" : "Moderate recession")
+                  : (language === "hi" ? "हल्का रिसेशन" : language === "te" ? "తేలికపాటి రిసెషన్" : "Mild recession")}
               </span>
             </div>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              {t("rightSideSimpleNotes")}
+              {analysis.rightTemple?.notes || t("rightSideSimpleNotes")}
             </p>
+            {analysis.rightTemple?.recessionDepthPct !== undefined && (
+              <p className="text-[11px] text-zinc-500">
+                {language === "hi" ? "अनुमानित गहराई:" : language === "te" ? "అంచనా లోతు:" : "Estimated depth:"} {analysis.rightTemple.recessionDepthPct}%
+              </p>
+            )}
           </div>
         </div>
       </div>
