@@ -230,6 +230,16 @@ export const TRANSLATIONS: Translations = {
     hi: "आपकी रिपोर्ट का आसान और स्पष्ट विवरण।",
     te: "మీ స్కాన్ ఫలితాల స్పష్టమైన, సరళమైన వివరణ.",
   },
+  easyNoticeTitle: {
+    en: "A Quick, Honest Note",
+    hi: "एक छोटी और सच्ची बात",
+    te: "ఒక చిన్న, నిజాయితీ గమనిక",
+  },
+  easyNoticeText: {
+    en: "This scan is a visual guide based on a single photo, not a medical diagnosis. For persistent thinning, itching, or sudden hair loss, please consult a dermatologist or trichologist.",
+    hi: "यह स्कैन एक फोटो पर आधारित दृश्य मार्गदर्शन है, चिकित्सीय निदान नहीं। लगातार बाल पतले होने, खुजली या अचानक बाल झड़ने पर त्वचा या बाल विशेषज्ञ से सलाह लें।",
+    te: "ఈ స్కాన్ ఒక ఫోటో ఆధారంగా చేసిన దృశ్య మార్గదర్శనం మాత్రమే, వైద్య నిర్ధారణ కాదు. నిరంతర జుట్టు సన్నబడటం, దురద లేదా అకస్మాత్తుగా జుట్టు రాలడం ఉంటే చర్మవ్యాధి నిపుణుడిని సంప్రదించండి.",
+  },
   photoViewerTitle: {
     en: "Your Photo with Red Line Indicator",
     hi: "लाल रेखा के साथ आपकी फोटो",
@@ -249,6 +259,11 @@ export const TRANSLATIONS: Translations = {
     en: "Scan Match Quality",
     hi: "स्कैन स्पष्टता",
     te: "స్కాన్ స్పష్టత నాణ్యత",
+  },
+  photoQualityGood: {
+    en: "Photo quality looks good — lighting and alignment are clear enough for a reliable visual read.",
+    hi: "फोटो की गुणवत्ता अच्छी है — रोशनी और संरेखण भरोसेमंद दृश्य विश्लेषण के लिए पर्याप्त साफ हैं।",
+    te: "ఫోటో నాణ్యత బాగుంది — విశ్వసనీయ దృశ్య విశ్లేషణకు లైటింగ్ మరియు అమరిక స్పష్టంగా ఉన్నాయి.",
   },
   simpleSummaryHeader: {
     en: "What This Means in Plain Words:",

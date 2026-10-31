@@ -271,10 +271,10 @@ export default function ResultsPage() {
           <div className="flex items-center justify-between pb-1">
             <div>
               <h2 className="text-lg font-bold text-zinc-950 dark:text-white">
-                {t("hairlineViewerTitle")}
+                {t("photoViewerTitle")}
               </h2>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                {t("hairlineViewerDesc")}
+                {t("photoViewerSub")}
               </p>
             </div>
             <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
@@ -297,7 +297,7 @@ export default function ResultsPage() {
           <div className="p-6 premium-card space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono uppercase tracking-wider text-red-500 font-semibold">
-                {t("overallStatusTitle")}
+                {t("overallStatusLabel")}
               </span>
               <span className="text-xs font-mono font-medium text-zinc-400">
                 {analysis.visiblePattern?.norwoodEquivalent || analysis.visiblePattern?.category || "Norwood Type 2"}
