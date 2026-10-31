@@ -31,7 +31,7 @@ export function LanguageSelector({ variant = "compact", className = "" }: Langua
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-700 dark:text-zinc-200 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/80 dark:hover:bg-zinc-700/80 border border-zinc-200 dark:border-zinc-700 transition-colors"
+        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-200 bg-zinc-100/80 hover:bg-zinc-200/80 dark:bg-zinc-800/60 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-white/10 backdrop-blur-sm transition-all"
         aria-label="Select language"
       >
         <span className="text-sm leading-none">{currentOption.flag}</span>
@@ -40,8 +40,8 @@ export function LanguageSelector({ variant = "compact", className = "" }: Langua
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-1.5 w-48 rounded-lg bg-white dark:bg-[#121215] shadow-lg border border-zinc-200 dark:border-zinc-800 py-1.5 z-50 text-xs animate-in fade-in slide-in-from-top-1 duration-150">
-          <div className="px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
+        <div className="absolute right-0 mt-1.5 w-52 rounded-2xl bg-white/95 dark:bg-[#0E1117]/95 backdrop-blur-xl shadow-2xl border border-zinc-200 dark:border-white/10 py-1.5 z-50 text-xs animate-in fade-in slide-in-from-top-1 duration-150">
+          <div className="px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 border-b border-zinc-100 dark:border-white/5 mb-1 font-mono">
             Language / భాష / भाषा
           </div>
           {LANGUAGES.map((opt) => (
@@ -52,8 +52,8 @@ export function LanguageSelector({ variant = "compact", className = "" }: Langua
                 setLanguage(opt.code);
                 setIsOpen(false);
               }}
-              className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors ${language === opt.code
-                ? "text-red-600 dark:text-red-400 font-semibold bg-red-50/50 dark:bg-red-950/20"
+              className={`w-full text-left px-3.5 py-2 flex items-center justify-between hover:bg-zinc-100/70 dark:hover:bg-zinc-800/60 transition-colors ${language === opt.code
+                ? "text-red-600 dark:text-red-400 font-semibold bg-red-500/10 dark:bg-red-500/15"
                 : "text-zinc-700 dark:text-zinc-300"
                 }`}
             >

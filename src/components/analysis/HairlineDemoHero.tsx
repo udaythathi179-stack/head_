@@ -52,12 +52,23 @@ export function HairlineDemoHero() {
         </div>
 
         {/* Image & SVG Canvas */}
-        <div className="relative aspect-[4/3.3] bg-zinc-950 overflow-hidden select-none">
+        <div className="relative aspect-[4/3.3] bg-zinc-950 overflow-hidden select-none laser-reticle group">
+          {/* Animated Laser Scanning Line */}
+          {showOverlay && (
+            <div className="scan-glow scan-beam-animated pointer-events-none" />
+          )}
+
+          {/* Corner Viewfinder Reticles */}
+          <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-red-500/70 z-10 pointer-events-none" />
+          <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-red-500/70 z-10 pointer-events-none" />
+          <div className="absolute bottom-10 left-3 w-4 h-4 border-b-2 border-l-2 border-red-500/70 z-10 pointer-events-none" />
+          <div className="absolute bottom-10 right-3 w-4 h-4 border-b-2 border-r-2 border-red-500/70 z-10 pointer-events-none" />
+
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/sample-hairline-2.jpg"
             alt="Natural front hairline reference scan"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
           />
 
           {/* SVG Overlay */}

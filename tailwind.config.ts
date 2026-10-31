@@ -43,6 +43,33 @@ const config: Config = {
           700: "#A82929",
           800: "#7F2020",
         },
+        brand: {
+          50: "#FFF1F2",
+          100: "#FFE4E6",
+          200: "#FECDD3",
+          300: "#FDA4AF",
+          400: "#FB7185",
+          500: "#F43F5E",
+          600: "#E11D48",
+          700: "#BE123C",
+          800: "#9F1239",
+          900: "#881337",
+          laser: "#FF3366",
+        },
+        obsidian: {
+          50: "#F4F5F7",
+          100: "#E4E7EB",
+          200: "#C9CED6",
+          300: "#A2ABB7",
+          400: "#758193",
+          500: "#546073",
+          600: "#3E4756",
+          700: "#2B323D",
+          800: "#1A1E26",
+          850: "#141720",
+          900: "#0F1219",
+          950: "#08090D",
+        },
         charcoal: {
           50: "#F5F6F5",
           100: "#E6E8E7",
@@ -89,7 +116,13 @@ const config: Config = {
         'soft-lg': '0 24px 48px -15px rgba(20, 23, 22, 0.12), 0 8px 24px -4px rgba(20, 23, 22, 0.06)',
         'glow-forest': '0 0 35px -5px rgba(44, 87, 67, 0.35)',
         'glow-coral': '0 0 30px -5px rgba(232, 77, 77, 0.4)',
+        'glow-laser': '0 0 30px rgba(255, 51, 102, 0.45), 0 0 60px rgba(239, 68, 68, 0.25)',
+        'glow-laser-sm': '0 0 16px rgba(239, 68, 68, 0.4)',
+        'specular': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.14)',
+        'specular-light': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.9)',
         'inner-glow': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.8)',
+        'card-elevated': '0 12px 36px -12px rgba(0, 0, 0, 0.25), 0 4px 12px -2px rgba(0, 0, 0, 0.12)',
+        'card-glow': '0 20px 50px -20px rgba(239, 68, 68, 0.35), 0 0 0 1px rgba(239, 68, 68, 0.15)',
       },
       keyframes: {
         "scan-line": {
@@ -108,6 +141,13 @@ const config: Config = {
         "shimmer": {
           "0%": { backgroundPosition: "200% 0" },
           "100%": { backgroundPosition: "-200% 0" }
+        },
+        "border-beam": {
+          "100%": { "offset-distance": "100%" }
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
+          "50%": { opacity: "0.85", transform: "scale(1.04)" }
         }
       },
       animation: {
@@ -115,6 +155,7 @@ const config: Config = {
         "pulse-subtle": "pulse-subtle 3s ease-in-out infinite",
         "float": "float 5s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
+        "glow-pulse": "glow-pulse 4s ease-in-out infinite",
       }
     },
   },

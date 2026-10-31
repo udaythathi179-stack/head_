@@ -201,8 +201,14 @@ export function HairlineCanvasViewer({
         onTouchMove={(e) => {
           if (mode === "slider") handleSliderMove(e);
         }}
-        className="relative w-full aspect-[4/5] sm:aspect-[4/4.5] md:aspect-[4/4] rounded-xl overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-sm select-none cursor-crosshair group"
+        className="relative w-full aspect-[4/5] sm:aspect-[4/4.5] md:aspect-[4/4] rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800/80 shadow-2xl select-none cursor-crosshair group laser-reticle"
       >
+        {/* Workstation Viewfinder Corner Reticles */}
+        <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-red-500/70 z-20 pointer-events-none" />
+        <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-red-500/70 z-20 pointer-events-none" />
+        <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-red-500/70 z-20 pointer-events-none" />
+        <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-red-500/70 z-20 pointer-events-none" />
+
         {/* Transform wrapper for Zoom & Pan */}
         <div
           className="relative w-full h-full transition-transform duration-100 ease-out"

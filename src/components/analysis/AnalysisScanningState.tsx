@@ -48,7 +48,13 @@ export function AnalysisScanningState({
     <div className="max-w-xl mx-auto w-full">
       <div className="premium-card p-6 sm:p-8 text-center">
         {/* Photo Container */}
-        <div className="relative w-56 h-64 mx-auto rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 mb-6 bg-zinc-950">
+        <div className="relative w-56 h-64 mx-auto rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 mb-6 bg-zinc-950 shadow-2xl laser-reticle group">
+          {/* Viewfinder corner brackets */}
+          <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-red-500 z-10 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-red-500 z-10 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-red-500 z-10 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-red-500 z-10 pointer-events-none" />
+
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageUrl}
@@ -57,11 +63,12 @@ export function AnalysisScanningState({
           />
 
           {/* Clean Red Scanning Indicator Line */}
-          <div className="absolute left-0 right-0 h-0.5 bg-red-500 shadow-[0_0_8px_#EF4444] animate-scan-line pointer-events-none" />
+          <div className="absolute left-0 right-0 h-0.5 bg-red-500 shadow-[0_0_12px_#FF3366,0_0_24px_rgba(239,68,68,0.8)] animate-scan-line pointer-events-none" />
 
           {/* Status badge */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded bg-black/80 text-[10px] text-zinc-300 font-mono">
-            SCANNING...
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-black/85 backdrop-blur-md border border-red-500/30 text-[10px] text-red-400 font-mono tracking-widest flex items-center gap-1.5 shadow-lg">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            <span>AI SCANNING</span>
           </div>
         </div>
 

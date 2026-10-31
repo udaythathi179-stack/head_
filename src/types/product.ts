@@ -1,9 +1,11 @@
 export type ProductCategory =
   | "all"
+  | "serums"
+  | "scalp-care"
   | "shampoos"
   | "conditioners"
-  | "scalp-care"
-  | "serums"
+  | "tools"
+  | "supplements"
   | "styling"
   | "evidence-treatments";
 
@@ -23,6 +25,7 @@ export type Product = {
   shortDescription: string;
   fullDescription: string;
   howToUse: string;
+  volume?: string; // e.g. "30 ml", "200 ml", "60 Gummies", "0.5mm Titanium"
   verifiedIngredients: {
     name: string;
     role: string;
@@ -33,4 +36,5 @@ export type Product = {
   type: "cosmetic" | "clinical-education" | "scalp-health";
   evidenceNotes?: string;
   affiliateDisclosure?: string;
+  buyUrl?: string;
 };

@@ -23,12 +23,12 @@ export function Logo({ className = "", size = "md", withText = true }: LogoProps
   return (
     <Link href="/" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
       {/* Follicle Minimalist Icon: an elegant follicle root turning into an upward rising curved hair strand */}
-      <div className={`relative ${iconSizes[size]} rounded-xl bg-forest-500/10 dark:bg-forest-400/20 flex items-center justify-center p-1.5 border border-forest-500/20 dark:border-forest-400/30 group-hover:border-forest-500/50 transition-colors`}>
+      <div className={`relative ${iconSizes[size]} rounded-xl bg-red-500/10 dark:bg-red-500/20 flex items-center justify-center p-1.5 border border-red-500/25 dark:border-red-500/35 group-hover:border-red-500/60 shadow-[0_0_15px_-3px_rgba(255,51,102,0.35)] transition-all duration-300`}>
         <svg
           viewBox="0 0 36 36"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full text-forest-600 dark:text-forest-400 transform group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full text-red-600 dark:text-red-400 transform group-hover:scale-105 transition-transform duration-300"
         >
           {/* Subtle curved hairline baseline */}
           <path
@@ -47,7 +47,7 @@ export function Logo({ className = "", size = "md", withText = true }: LogoProps
             strokeLinecap="round"
           />
           {/* Precision AI anchor dot (at follicle bulb) */}
-          <circle cx="18" cy="30" r="2.2" fill="#E45454" />
+          <circle cx="18" cy="30" r="2.2" fill="#FF3366" />
           {/* Vitality node */}
           <circle cx="21" cy="7" r="1.5" fill="currentColor" opacity="0.8" />
         </svg>

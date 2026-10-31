@@ -66,10 +66,15 @@ export default function ResultsPage() {
     if (!analysis) return [];
     const slugs = analysis?.carePlan?.suggestedProductSlugs || [];
     const matched = SAMPLE_PRODUCTS.filter((product) => slugs.includes(product.slug));
-    if (matched.length > 0) return matched.slice(0, 4);
-    return SAMPLE_PRODUCTS.filter((product) =>
+    if (matched.length > 0) {
+      const rest = SAMPLE_PRODUCTS.filter((product) => !slugs.includes(product.slug));
+      return [...matched, ...rest].slice(0, 8);
+    }
+    const templeFriendly = SAMPLE_PRODUCTS.filter((product) =>
       product.suitedFor.some((tag) => tag.includes("temple"))
-    ).slice(0, 4);
+    );
+    const remaining = SAMPLE_PRODUCTS.filter((product) => !templeFriendly.includes(product));
+    return [...templeFriendly, ...remaining].slice(0, 8);
   }, [analysis]);
 
   if (!analysis) {
