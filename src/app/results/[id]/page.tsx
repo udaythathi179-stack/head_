@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { HairlineAnalysisResult } from "@/types/analysis";
 import { HairlineCanvasViewer } from "@/components/analysis/HairlineCanvasViewer";
+import { HairProductsCatalog } from "@/components/analysis/HairProductsCatalog";
 import { FollicleStorage } from "@/lib/storage";
 import { SAMPLE_ANALYSIS, SAMPLE_PRODUCTS } from "@/lib/mock-data";
 import { useLanguage } from "@/components/i18n/LanguageContext";
@@ -61,21 +62,6 @@ export default function ResultsPage() {
       setAnalysis(normalizeResult(found || SAMPLE_ANALYSIS));
     }
   }, [params]);
-
-  const recommendedProducts = React.useMemo(() => {
-    if (!analysis) return [];
-    const slugs = analysis?.carePlan?.suggestedProductSlugs || [];
-    const matched = SAMPLE_PRODUCTS.filter((product) => slugs.includes(product.slug));
-    if (matched.length > 0) {
-      const rest = SAMPLE_PRODUCTS.filter((product) => !slugs.includes(product.slug));
-      return [...matched, ...rest].slice(0, 8);
-    }
-    const templeFriendly = SAMPLE_PRODUCTS.filter((product) =>
-      product.suitedFor.some((tag) => tag.includes("temple"))
-    );
-    const remaining = SAMPLE_PRODUCTS.filter((product) => !templeFriendly.includes(product));
-    return [...templeFriendly, ...remaining].slice(0, 8);
-  }, [analysis]);
 
   if (!analysis) {
     return (
@@ -281,7 +267,7 @@ export default function ResultsPage() {
       {/* 2. MAIN GRID: PHOTO VIEWER & STATUS */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Hairline Photo with Red Contour Viewer (7 cols) */}
-        <div className="lg:col-span-7 p-6 premium-card space-y-4">
+        <div className="lg:col-span-7 p-6 premium-card space-y-4" data-reveal="left">
           <div className="flex items-center justify-between pb-1">
             <div>
               <h2 className="text-lg font-bold text-zinc-950 dark:text-white">
@@ -306,7 +292,7 @@ export default function ResultsPage() {
         </div>
 
         {/* Right Column: Status & Simple Measurements (5 cols) */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 space-y-6" data-reveal="right">
           {/* Status Box */}
           <div className="p-6 premium-card space-y-4">
             <div className="flex items-center justify-between">
@@ -391,7 +377,7 @@ export default function ResultsPage() {
       </div>
 
       {/* 3. TEMPLE CORNER CHECK */}
-      <div className="p-6 premium-card space-y-4">
+      <div className="p-6 premium-card space-y-4" data-reveal>
         <h3 className="text-base font-bold text-zinc-950 dark:text-white">
           {t("templeCheckTitle")}
         </h3>
@@ -440,7 +426,7 @@ export default function ResultsPage() {
       </div>
 
       {/* 4. WHY HAIR LAGS BEHIND & HOW TO OVERCOME IT (SIMPLE MATTER) */}
-      <div className="p-6 sm:p-8 premium-card space-y-6">
+      <div className="p-6 sm:p-8 premium-card space-y-6" data-reveal>
         <div>
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-red-500 font-semibold mb-1">
             <span>{t("brandName")}</span>
@@ -617,7 +603,7 @@ export default function ResultsPage() {
       </div>
 
       {/* 5. SIMPLE DAILY HABITS */}
-      <div className="p-6 sm:p-8 premium-card space-y-6">
+      <div className="p-6 sm:p-8 premium-card space-y-6" data-reveal>
         <div>
           <span className="text-xs font-mono uppercase tracking-wider text-red-500 font-semibold">
             {t("brandName")}
@@ -661,7 +647,7 @@ export default function ResultsPage() {
       </div>
 
       {/* 5. EASY KITCHEN & NATURAL HOME REMEDIES */}
-      <div className="p-6 sm:p-8 premium-card space-y-6">
+      <div className="p-6 sm:p-8 premium-card space-y-6" data-reveal>
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-green-600 dark:text-green-400 font-semibold">
             <Leaf className="w-3.5 h-3.5" />
@@ -744,79 +730,11 @@ export default function ResultsPage() {
         </div>
       </div>
 
-      {/* 6. NATURAL PRODUCTS RECOMMENDED FOR YOU */}
-      <div className="p-6 sm:p-8 premium-card space-y-6">
-        <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-red-500 font-semibold">
-            <ShoppingBag className="w-3.5 h-3.5" />
-            <span>NATURAL PRODUCTS</span>
-          </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-zinc-950 dark:text-white mt-1">
-            {language === "hi" ? "प्राकृतिक उत्पाद जो आपके लिए उपयुक्त हो सकते हैं" : language === "te" ? "మీకు అనుకూలమైన సహజ ఉత్పత్తులు" : "Natural Products Recommended For You"}
-          </h2>
-          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-            {language === "hi" ? "प्राकृतिक सामग्री पर आधारित उत्पाद जो बालों के झड़ने को कम करने में मदद कर सकते हैं" : language === "te" ? "జుట్టు రాలడాన్ని తగ్గించడంలో సహాయపడే సహజ పదార్థాలపై ఆధారపడిన ఉత్పత్తులు" : "Product recommendations based on your hairline analysis - natural & effective options"}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {recommendedProducts.map((product) => (
-            <div key={product.id} className="rounded-xl bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 hover:border-red-400/50 hover:shadow-lg transition-all overflow-hidden flex flex-col">
-              <div className="relative h-48 w-full bg-zinc-100 dark:bg-zinc-800">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-2 left-2">
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono bg-white/90 dark:bg-black/80 text-zinc-900 dark:text-white font-medium">
-                    {product.brand}
-                  </span>
-                </div>
-              </div>
-              <div className="p-4 space-y-3 flex flex-col flex-grow">
-                <div>
-                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white line-clamp-2 leading-tight">
-                    {product.name}
-                  </h3>
-                  <p className="text-[11px] text-zinc-500 mt-1 line-clamp-1">
-                    {product.tagline}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="text-base font-bold text-zinc-900 dark:text-white">₹{product.price}</div>
-                  <div className="flex items-center gap-1">
-                    <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                    <span className="text-[10px] text-zinc-500">{product.rating}</span>
-                  </div>
-                </div>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
-                  {product.shortDescription}
-                </p>
-                <div className="flex flex-wrap gap-1 mt-auto">
-                  {product.badges.slice(0, 2).map((badge, idx) => (
-                    <span key={idx} className="px-1.5 py-0.5 rounded text-[9px] bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-                {product.whyItSuitsYou && (
-                  <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20 text-[10px] text-green-700 dark:text-green-400 line-clamp-2">
-                    <strong>Fit: </strong>{product.whyItSuitsYou}
-                  </div>
-                )}
-                <button className="w-full py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white text-xs font-semibold transition-colors">
-                  {language === "hi" ? "खरीदें" : "View Product"}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="text-[11px] text-zinc-500 text-center">
-          {language === "hi" ? "* ये सुझाव सामान्य जानकारी हैं। गंभीर समस्या होने पर डॉक्टर से सलाह लें।" : "* These are general recommendations. Consult a doctor if you have severe hair loss concerns."}
-        </p>
-      </div>
+      {/* 6. VERIFIED HAIR & SCALP PRODUCTS (EXPANDED CATALOG) */}
+      <HairProductsCatalog
+        recommendedSlugs={analysis.carePlan?.suggestedProductSlugs}
+        norwoodCategory={analysis.visiblePattern?.category}
+      />
     </div>
   );
 }

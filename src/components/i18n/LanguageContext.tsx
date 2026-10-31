@@ -40,6 +40,11 @@ export const TRANSLATIONS: Translations = {
     hi: "होम",
     te: "హోమ్",
   },
+  navProducts: {
+    en: "Hair Products",
+    hi: "हेयर उत्पाद",
+    te: "హెయిర్ ఉత్పత్తులు",
+  },
   navAnalyzer: {
     en: "Hairline Analyzer",
     hi: "हेयरलाइन विश्लेषक",

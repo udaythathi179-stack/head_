@@ -5,6 +5,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { LanguageProvider } from "@/components/i18n/LanguageContext";
+import { MotionObserver } from "@/components/ui/MotionObserver";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -68,6 +70,8 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-background text-foreground transition-colors selection:bg-red-500 selection:text-white">
         <ThemeProvider>
           <LanguageProvider>
+            <MotionObserver />
+            <ScrollProgress />
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />

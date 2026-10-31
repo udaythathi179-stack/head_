@@ -137,16 +137,30 @@ export function generatePersonalizedCarePlan(
     },
   ];
 
-  const suggestedProductSlugs = [
-    "dense-root-caffeine-shampoo",
-    "follicle-clarifying-scalp-serum",
-    "botanical-copper-peptide-complex",
+  const suggestedProductSlugs: string[] = [
+    "minimalist-hair-growth-actives-18",
+    "pilgrim-redensyl-anagain-hair-serum",
+    "mamaearth-rosemary-methi-hair-oil",
   ];
 
+  if (answers.primaryConcern?.includes("Temple") || answers.primaryConcern?.includes("recession")) {
+    suggestedProductSlugs.push("bontress-pro-scalp-serum");
+    suggestedProductSlugs.push("derma-roller-0-5mm");
+    suggestedProductSlugs.push("wishcare-multi-peptide-hair-serum");
+  }
+
   if (answers.scalpSymptoms?.includes("Flaking/scaling") || answers.scalpSymptoms?.includes("Occasional itching")) {
+    suggestedProductSlugs.push("ketoconazole-anti-dandruff-shampoo");
     suggestedProductSlugs.push("scalp-barrier-restorative-lotion");
   } else {
+    suggestedProductSlugs.push("dense-root-caffeine-shampoo");
     suggestedProductSlugs.push("amino-repair-weightless-conditioner");
+  }
+
+  if (answers.familyHistory?.includes("Maternal") || answers.familyHistory?.includes("Paternal") || answers.familyHistory?.includes("Both")) {
+    suggestedProductSlugs.push("man-matters-minoxidil-5-solution");
+    suggestedProductSlugs.push("biotin-collagen-hair-gummies");
+    suggestedProductSlugs.push("nutrova-keratin-building-nutrients");
   }
 
   return {

@@ -23,11 +23,13 @@ export function Navbar() {
 
   const navLinks = [
     { label: t("navHome"), href: "/" },
+    { label: t("navProducts"), href: "/#products" },
     { label: t("navAnalyzer"), href: "/analyze" },
   ];
 
   return (
     <header className="nav-glass sticky top-0 z-50 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Logo size="md" />

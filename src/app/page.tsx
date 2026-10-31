@@ -16,6 +16,7 @@ import {
   ScanLine,
 } from "lucide-react";
 import { HairlineDemoHero } from "@/components/analysis/HairlineDemoHero";
+import { HairProductsCatalog } from "@/components/analysis/HairProductsCatalog";
 import { useLanguage } from "@/components/i18n/LanguageContext";
 
 export default function HomePage() {
@@ -267,6 +268,17 @@ export default function HomePage() {
               className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-red-500/15 via-rose-400/10 to-amber-300/10 blur-2xl"
               aria-hidden="true"
             />
+            <div className="absolute -left-4 top-16 z-20 hidden xl:flex glass-chip float-slow">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+              AI contour lock · 92%
+            </div>
+            <div
+              className="absolute -right-3 bottom-24 z-20 hidden xl:flex glass-chip float-slow"
+              style={{ animationDelay: "-3s" }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              Private · on-device
+            </div>
             <div className="relative float-slow">
               <HairlineDemoHero />
             </div>
@@ -274,9 +286,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-14 md:py-16 border-t border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-950/40 overflow-hidden">
+      <div className="marquee border-y border-zinc-200/80 dark:border-zinc-800/80 bg-white/60 dark:bg-zinc-950/40 py-3.5">
+        <div className="marquee-track">
+          {[0, 1].map((group) => (
+            <div
+              key={group}
+              className="marquee-group"
+              aria-hidden={group === 1}
+            >
+              {[
+                "Red-line contour detection",
+                "Norwood scale mapping",
+                "Temple angle symmetry",
+                "Private in-browser analysis",
+                "Clinically informed care plans",
+                "26+ curated hair products",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400 whitespace-nowrap"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-red-500 to-amber-400" />
+                  {item}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <section className="relative py-14 md:py-16 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-950/40 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-9 text-center max-w-2xl mx-auto space-y-3">
+          <div
+            className="mb-9 text-center max-w-2xl mx-auto space-y-3"
+            data-reveal="scale"
+          >
             <div className="section-eyebrow justify-center mx-auto">EASY &amp; QUICK</div>
             <h2 className="text-2xl sm:text-3xl font-bold text-zinc-950 dark:text-white tracking-tight">
               {t("howItWorksTitle")}
@@ -284,8 +328,14 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {steps.map((step) => (
-              <div key={step.badge} data-step={step.badge} className="step-card">
+            {steps.map((step, index) => (
+              <div
+                key={step.badge}
+                data-step={step.badge}
+                data-reveal
+                style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}
+                className="step-card"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <span className="step-badge">{step.badge}</span>
                   <span className="text-[10px] font-mono font-semibold tracking-[0.18em] text-zinc-400 dark:text-zinc-500">
@@ -305,7 +355,7 @@ export default function HomePage() {
       </section>
 
       <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5" data-reveal>
           <div className="space-y-3 max-w-2xl">
             <div className="section-eyebrow">HAIR LINE DETECTOR</div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 dark:text-white tracking-tight">
@@ -337,7 +387,12 @@ export default function HomePage() {
           {analyzerFeatures.map((feat, i) => {
             const Icon = feat.icon;
             return (
-              <div key={i} className="premium-card p-6 space-y-4">
+              <div
+                key={i}
+                data-reveal="scale"
+                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
+                className="premium-card hover-tilt p-6 space-y-4"
+              >
                 <div className="flex items-start justify-between gap-4">
                   <span className="icon-tile">
                     <Icon className="w-5 h-5" />
@@ -360,8 +415,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Featured Hair & Scalp Products Catalog */}
+      <section
+        id="products"
+        className="py-6 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full scroll-mt-20"
+      >
+        <HairProductsCatalog />
+      </section>
+
       <section className="pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="cta-panel p-8 sm:p-12 md:p-14">
+        <div className="cta-panel p-8 sm:p-12 md:p-14" data-reveal="scale">
           <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             <div className="space-y-3 max-w-xl">
               <div className="inline-flex items-center gap-2 text-[11px] font-mono font-semibold uppercase tracking-[0.16em] text-red-400">
